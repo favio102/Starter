@@ -12,3 +12,4 @@
 /Users/fav/code/CsharpProjects/ChallengeProject/Starter/obj/Debug/net8.0/Starter.pdb
 /Users/fav/code/CsharpProjects/ChallengeProject/Starter/obj/Debug/net8.0/Starter.genruntimeconfig.cache
 /Users/fav/code/CsharpProjects/ChallengeProject/Starter/obj/Debug/net8.0/ref/Starter.dll
+/Users/fav/code/CsharpProjects/ChallengeProject/Starter/obj/Debug/net8.0/Starter.sourcelink.json

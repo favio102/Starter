@@ -1,4 +1,4 @@
-/* 
+/*
 This C# console application is designed to:
 - Use arrays to store student names and assignment scores.
 - Use a `foreach` statement to iterate through the student names as an outer program loop.
@@ -9,12 +9,12 @@ This C# console application is designed to:
 - Integrate extra credit scores when calculating the student's final score and letter grade as follows:
     - detects extra credit assignments based on the number of elements in the student's scores array.
     - divides the values of extra credit assignments by 10 before adding extra credit scores to the sum of exam scores.
-- use the following report format to report student grades: 
+- use the following report format to report student grades:
 
     Student         Grade
 
     Sophia:         92.2    A-
-    Andrew:         89.6    B+
+    Andrew:         89.6    B+ 
     Emma:           85.6    B
     Logan:          91.2    A-
 */
@@ -33,11 +33,11 @@ string currentStudentLetterGrade = "";
 
 // display the header row for scores/grades
 Console.Clear();
-Console.WriteLine("Student\t\tGrade\tLetter Grade\n");
+Console.WriteLine("Student\t\tExam Score\tOverall Grade\tExtra Credit\n");
 
 /*
 The outer foreach loop is used to:
-- iterate through student names 
+- iterate through student names
 - assign a student's grades to the studentScores array
 - sum assignment scores (inner foreach loop)
 - calculate numeric and letter grade
@@ -59,13 +59,17 @@ foreach (string name in studentNames)
     else if (currentStudent == "Logan")
         studentScores = loganScores;
 
-    int sumAssignmentScores = 0;
+    int gradedAssignments = 0;
+    int gradedExtraCreditAssignments = 0;
+    int sumExamScores = 0;
+    int sumExtraCreditScores = 0;
 
     decimal currentStudentGrade = 0;
+    decimal currentStudentExamScore = 0;
+    decimal currentStudentExtraCreditScore = 0;
 
-    int gradedAssignments = 0;
 
-    /* 
+    /*
     the inner foreach loop sums assignment scores
     extra credit assignments are worth 10% of an exam score
     */
@@ -74,13 +78,19 @@ foreach (string name in studentNames)
         gradedAssignments += 1;
 
         if (gradedAssignments <= examAssignments)
-            sumAssignmentScores += score;
+            {sumExamScores += score;}
 
         else
-            sumAssignmentScores += score / 10;
+            {gradedExtraCreditAssignments += 1;
+            sumExtraCreditScores += score;}
     }
 
-    currentStudentGrade = (decimal)(sumAssignmentScores) / examAssignments;
+    currentStudentExamScore = (decimal)(sumExamScores) / examAssignments ;
+    currentStudentExtraCreditScore = (decimal)(sumExtraCreditScores) / gradedExtraCreditAssignments;
+
+    currentStudentGrade = (decimal)((decimal)sumExamScores + ((decimal)sumExtraCreditScores / 10)) / examAssignments;
+
+
 
     if (currentStudentGrade >= 97)
         currentStudentLetterGrade = "A+";
@@ -123,8 +133,8 @@ foreach (string name in studentNames)
 
     // Student         Grade
     // Sophia:         92.2    A-
-    
-    Console.WriteLine($"{currentStudent}\t\t{currentStudentGrade}\t{currentStudentLetterGrade}");
+
+    Console.WriteLine($"{currentStudent}\t\t{currentStudentExamScore}\t\t{currentStudentGrade}\t{currentStudentLetterGrade}\t{currentStudentExtraCreditScore} ({(((decimal)sumExtraCreditScores / 10) / examAssignments)} pts)");
 }
 
 // required for running in VS Code (keeps the Output windows open to view results)
